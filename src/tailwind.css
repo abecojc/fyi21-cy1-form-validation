@@ -2,7 +2,7 @@
 @tailwind components;
 
 .base-input {
-    @apply border-b-2 border-gray-300 outline-none focus:border-gray-600;
+    @apply border-b-2 border-gray-300 outline-none focus:border-gray-600 p-2;
 }
 
 @tailwind utilities;
