@@ -16,7 +16,7 @@ const password2Error = password2.nextElementSibling
 
 // 2. Add event / modification
 
-regForm.addEventListener('click', function (e) {
+    username.addEventListener('click', function (e) {
   e.preventDefault()
 
   // 2. Check if the value is empty
@@ -28,7 +28,7 @@ regForm.addEventListener('click', function (e) {
   }
 })
 
-regForm.addEventListener('click', function (e) {
+email.addEventListener('click', function (e) {
   e.preventDefault()
 
   //@TODO: add the validation for email
@@ -48,7 +48,6 @@ regForm.addEventListener('click', function (e) {
   } else {
     console.log('sending to server')
   }
-
 
 
   //@TODO: add the validation for confirm password
