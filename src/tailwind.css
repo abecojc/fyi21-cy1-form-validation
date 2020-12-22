@@ -17,7 +17,7 @@
 
 }
 .success {
-    @apply border border-gray-300 bg-green-600 text-white p-2 block;
+    @apply border border-gray-300 bg-green-600 text-white p-2 block $("status").html('&#10003;');
 }
 
 .error {
