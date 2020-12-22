@@ -22,7 +22,8 @@ regForm.addEventListener('submit', function (e) {
     validatePassMatch(password,password2)
     validateIsEmail(email)
     validateEmail(email)
-    validateMinLength (password,password2)
+    validateMinLength (password)
+    validateMinLength (password2)
 })
 
 // checking if input field is empty or not
@@ -56,7 +57,7 @@ function showSuccess(input,msg) {
 
 function validatePassMatch (password, password2) {
     if (password.value===password2.value && password.value!==''){
-        showSuccess(password2,'Match')
+        showSuccess(password2,`${password.name} matches ${password2.name}`)
     }else {
         showError(password2,'Error, not a match! Please re-enter the password')
     }
@@ -80,24 +81,15 @@ function validateEmail(email) {
     return result
 
 }
-// returns boolean
-// function emailValidates (email) {
-//     // Regular Expression
-//     if (email.value===/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(regForm.email.value))
-//         {
-//             return true
-//
-//         }else{
-//
-//         return false}
     //@TODO:  find implementation on SO
 
 
 
-// input: HTMLInputElement
+//
 function validateMinLength (input) {
     console.log(input.value.length)
     const inputName = input.name
+
     if (input.value.length < 4 && input.value===password.value){
         showError(input, `${inputName} is too short`)
     } else {
