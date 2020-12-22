@@ -19,7 +19,10 @@ regForm.addEventListener('submit', function (e) {
     validateEmpty(email)
     validateEmpty(password)
     validateEmpty(password2)
-
+    validatePassMatch(password,password2)
+    validateIsEmail(email)
+    validateEmail(email)
+    validateMinLength (password,password2)
 })
 
 // checking if input field is empty or not
@@ -34,26 +37,25 @@ function validateEmpty(input) {
     } else {
         showSuccess(input,`${inputName} is entered`)
     }
-    // if(email.value===reg){
-    //     return validateEmail
-    // } else{
-    //     return alert("Not a valid email address!")
-    // }
+
 }
 
 // connect js to html code
 function showError(input, msg){
-    // uses styling from tailwind.css file
+     // uses styling from tailwind.css file
     input.nextElementSibling.innerHTML = `<small class="error">${msg}</small>`
+
 }
 
 //connect js to html cod
 function showSuccess(input,msg) {
     input.nextElementSibling.innerHTML =`<small class="success">${msg}</small>`
+
 }
 
+
 function validatePassMatch (password, password2) {
-    if (password.value===password2.value && password.value!==''&& password2.value!==''){
+    if (password.value===password2.value && password.value!==''){
         showSuccess(password2,'Match')
     }else {
         showError(password2,'Error, not a match! Please re-enter the password')
@@ -61,40 +63,47 @@ function validatePassMatch (password, password2) {
     //@TODO: check if the passwords match
 }
 
+
 function validateIsEmail (email) {
-    if (emailValidates(email)) { // return true
-        showSuccess(email)
+    if (validateEmail(email)===true) { // return true
+        showSuccess(email,'valid')
     } else {
         showError(email, 'Email is invalid')
     }
 }
+//
 
-// returns boolean
-function emailValidates (email) {
-    // Regular Expression
-    if (email.value===/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(regForm.email.value))
-        {
-            return true
-
-        }else{
-
-        return false}
-    //@TODO:  find implementation on SO
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let result = re.test(String(email).toLowerCase())
+    console.log(result)
+    return result
 
 }
+// returns boolean
+// function emailValidates (email) {
+//     // Regular Expression
+//     if (email.value===/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(regForm.email.value))
+//         {
+//             return true
+//
+//         }else{
+//
+//         return false}
+    //@TODO:  find implementation on SO
+
+
 
 // input: HTMLInputElement
 function validateMinLength (input) {
-    // console.log(input.value.length)
-    if (input.value.length < 6) {
-        showError(input, 'Username too short')
+    console.log(input.value.length)
+    const inputName = input.name
+    if (input.value.length < 4 && input.value===password.value){
+        showError(input, `${inputName} is too short`)
     } else {
-        showSuccess(input)
+        showSuccess(input,`${inputName} is long enough`)
     }
 }
 
 
-
-function validateEmail(email)
-{
 
