@@ -1,7 +1,5 @@
 //@TODO: Code Challenge 5b: Refactor your CC 5a to use function with the "blueprints" below
 
-//@TODO: Code Challenge 5b: Refactor your CC 5a to use function with the "blueprints" below
-
 // Declaring variables
 const regForm = document.getElementById('registration-form')
 
@@ -21,31 +19,91 @@ regForm.addEventListener('submit', function (e) {
     validateEmpty(email)
     validateEmpty(password)
     validateEmpty(password2)
-
+    validatePassMatch(password,password2)
+    validateIsEmail(email)
+    validateEmail(email)
+    validateMinLength (password,password2)
 })
 
-// This function checks if input was entered and calls for showError or showSuccess and displays relative massages
+// checking if input field is empty or not
 function validateEmpty(input) {
     console.log(input.value)
-    // declares and assign the name value to a new variable
+    // declaration
     const inputName = input.name
-    //compares the input entered with an empty string
+    //for empty value
     if (input.value ==='') {
-        //calls for the showError function and displays a message
+        //functions for error or success
         showError(input,`${inputName} field is empty`)
     } else {
-        //calls for the showSuccess function and displays a message
         showSuccess(input,`${inputName} is entered`)
+    }
+
+}
+
+// connect js to html code
+function showError(input, msg){
+     // uses styling from tailwind.css file
+    input.nextElementSibling.innerHTML = `<small class="error">${msg}</small>`
+
+}
+
+//connect js to html cod
+function showSuccess(input,msg) {
+    input.nextElementSibling.innerHTML =`<small class="success">${msg}</small>`
+
+}
+
+
+function validatePassMatch (password, password2) {
+    if (password.value===password2.value && password.value!==''){
+        showSuccess(password2,'Match')
+    }else {
+        showError(password2,'Error, not a match! Please re-enter the password')
+    }
+    //@TODO: check if the passwords match
+}
+
+
+function validateIsEmail (email) {
+    if (validateEmail(email)===true) { // return true
+        showSuccess(email,'valid')
+    } else {
+        showError(email, 'Email is invalid')
+    }
+}
+//
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let result = re.test(String(email).toLowerCase())
+    console.log(result)
+    return result
+
+}
+// returns boolean
+// function emailValidates (email) {
+//     // Regular Expression
+//     if (email.value===/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(regForm.email.value))
+//         {
+//             return true
+//
+//         }else{
+//
+//         return false}
+    //@TODO:  find implementation on SO
+
+
+
+// input: HTMLInputElement
+function validateMinLength (input) {
+    console.log(input.value.length)
+    const inputName = input.name
+    if (input.value.length < 4 && input.value===password.value){
+        showError(input, `${inputName} is too short`)
+    } else {
+        showSuccess(input,`${inputName} is long enough`)
     }
 }
 
-// displays a message box next to the empty input field
-function showError(input, msg){
-    // uses styling from tailwind.css file
-    input.nextElementSibling.innerHTML = `<small class="error">${msg}</small>`
-}
 
-// displays a message box next to the completed input field
-function showSuccess(input,msg) {
-    input.nextElementSibling.innerHTML =`<small class="success">${msg}</small>`
-}
+
